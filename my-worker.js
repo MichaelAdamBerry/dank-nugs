@@ -14,68 +14,71 @@ the directory.
 */
 
 const precacheFiles = [
-    "/",
-    "/about/",
-    "/search/",
-    "/blog/",
-    "/blog/post-one-code-block-demo/",
-    "/blog/post-two-image-demo/",
-    "/blog/post-three-smooth-scroll-and-reading-progress-bar/",
-    "/blog/post-four-link-on-twitter/"
+  "/",
+  "/home",
+  "/about/",
+  "/search/",
+  "/blog/",
+  "/blog/post-one-styled-components/",
+  "/blog/post-one-code-block-demo/",
+  "/blog/post-two-image-demo/",
+  "/blog/post-three-smooth-scroll-and-reading-progress-bar/",
+  "/blog/post-four-link-on-twitter/",
+  "/blog/post-two-whats-this"
 ];
 
 self.addEventListener("install", e => {
-    console.log("[ServiceWorker] Installed");
+  console.log("[ServiceWorker] Installed");
 
-    self.skipWaiting();
+  self.skipWaiting();
 
-    e.waitUntil(
-        caches.open(precacheName).then(cache => {
-            console.log("[ServiceWorker] Precaching files", cache);
-            return cache.addAll(precacheFiles);
-        })
-    );
+  e.waitUntil(
+    caches.open(precacheName).then(cache => {
+      console.log("[ServiceWorker] Precaching files", cache);
+      return cache.addAll(precacheFiles);
+    })
+  );
 });
 
 self.addEventListener("activate", e => {
-    console.log("[ServiceWorker] Activated");
+  console.log("[ServiceWorker] Activated");
 
-    e.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(thisCacheName => {
-                    if (
-                        thisCacheName.includes("precache") &&
-                        thisCacheName !== precacheName
-                    ) {
-                        console.log(
-                            "[ServiceWorker] Removing cached files from old cache - ",
-                            thisCacheName
-                        );
-                        return caches.delete(thisCacheName);
-                    }
-                })
+  e.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(thisCacheName => {
+          if (
+            thisCacheName.includes("precache") &&
+            thisCacheName !== precacheName
+          ) {
+            console.log(
+              "[ServiceWorker] Removing cached files from old cache - ",
+              thisCacheName
             );
+            return caches.delete(thisCacheName);
+          }
         })
-    );
+      );
+    })
+  );
 });
 
 self.addEventListener("fetch", e => {
-    e.respondWith(
-        caches.match(e.request).then(cachedResponse => {
-            if (cachedResponse) {
-                console.log("Found in cache!");
-                return cachedResponse;
-            }
+  e.respondWith(
+    caches.match(e.request).then(cachedResponse => {
+      if (cachedResponse) {
+        console.log("Found in cache!");
+        return cachedResponse;
+      }
 
-            return fetch(e.request)
-                .then(fetchResponse => fetchResponse)
-                .catch(err => {
-                    const isHTMLPage =
-                        e.request.method == "GET" &&
-                        e.request.headers.get("accept").includes("text/html");
-                    if (isHTMLPage) return caches.match("/");
-                });
-        })
-    );
+      return fetch(e.request)
+        .then(fetchResponse => fetchResponse)
+        .catch(err => {
+          const isHTMLPage =
+            e.request.method == "GET" &&
+            e.request.headers.get("accept").includes("text/html");
+          if (isHTMLPage) return caches.match("/");
+        });
+    })
+  );
 });

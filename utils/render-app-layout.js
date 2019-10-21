@@ -1,41 +1,45 @@
-import SearchLayout from "../components/layouts/SearchLayout";
-import BlogLayout from "../components/layouts/BlogLayout";
-
+import { SearchContent } from "../components/layouts/SearchLayout";
+import { BlogContent } from "../components/layouts/BlogLayout";
+import Nav from "../components/Nav";
+import BackBtn from "../components/BackBtn";
 export function renderLayout(props, state) {
-    const { Component } = props;
-    const { postData } = state;
-    const { layout } = postData;
+  const { Component } = props;
+  const { postData } = state;
+  const { layout } = postData;
 
-    if (!layout || !props.router) return;
+  if (!layout || !props.router) return;
 
-    switch (layout) {
-        case "post":
-            return (
-                <BlogLayout>
-                    <Component {...props} postData={postData} />
-                </BlogLayout>
-            );
-        case "search":
-            return (
-                <SearchLayout>
-                    <Component {...props} />
-                    {/* Put styled-jsx here */}
-                </SearchLayout>
-            );
-        case "blog-post-list":
-            return (
-                <React.Fragment>
-                    <Component {...props} />
-                    {/* Put styled-jsx here */}
-                </React.Fragment>
-            );
-        case "page":
-        default:
-            return (
-                <React.Fragment>
-                    <Component {...props} />
-                    {/* Put styled-jsx here */}
-                </React.Fragment>
-            );
-    }
+  switch (layout) {
+    case "post":
+      return (
+        <div className="site-container">
+          <BackBtn />
+          <BlogContent>
+            <Component {...props} postData={postData} />
+          </BlogContent>
+        </div>
+      );
+    case "search":
+      return (
+        <SearchContent>
+          <Component {...props} />
+        </SearchContent>
+      );
+    case "blog-post-list":
+      return (
+        <React.Fragment>
+          <div className="site-container">
+            <Nav />
+            <Component {...props} />
+          </div>
+        </React.Fragment>
+      );
+    case "page":
+    default:
+      return (
+        <React.Fragment>
+          <Component {...props} postData={postData} />
+        </React.Fragment>
+      );
+  }
 }

@@ -1,5 +1,7 @@
 import React from "react";
+import styled from "@emotion/styled";
 
-export default ({ children }) => (
-    <div className="search-layout">{children}</div>
-);
+export const SearchContent = styled.div`
+  grid-column: 2/5;
+  grid-row: 2/6;
+`;

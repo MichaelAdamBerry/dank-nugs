@@ -1,9 +1,11 @@
 {
-    "version": 2,
-    "name": "nextjs-mdx-blog-kit",
-    "alias": "nextjs-mdx-blog-kit.com",
-    "builds": [{
-        "src": "package.json",
-        "use": "@now/static-build"
-    }]
+  "version": 2.0,
+  "name": "Michael Adam Berry's Blog",
+  "alias": "dank-nugs",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build"
+    }
+  ]
 }

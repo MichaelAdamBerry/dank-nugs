@@ -1,45 +1,46 @@
 import React from "react";
 import Link from "next/link";
+import styled from "@emotion/styled";
 
 function tagMaker(tagList) {
-    let alphabetizedTags = tagList.sort();
-    return (
-        <div className={`tag-container`}>
-            <span>Tags: </span>
-            {alphabetizedTags.map(tag => (
-                <Link prefetch key={`${tag}-link`} href={`/search?q=${tag}`}>
-                    <a key={tag} className="tag">
-                        {tag}
-                    </a>
-                </Link>
-            ))}
-            <style jsx>{`
-                .tag-container {
-                    margin-top: 10px;
-                }
-                a.tag {
-                    margin-left: 10px;
-                    background-color: #eee;
-
-                    font-size: 14px;
-                    padding: 3px 9px;
-                    border: 2px solid #ddd;
-                    border-radius: 17px;
-                    cursor: pointer;
-                    text-decoration: none;
-                }
-
-                a.tag:first-of-type {
-                    margin-left: 0px;
-                }
-            `}</style>
-        </div>
-    );
+  let alphabetizedTags = tagList.sort();
+  return (
+    <Tag>
+      {alphabetizedTags.map(tag => (
+        <Link prefetch key={`${tag}-link`} href={`/search?q=${tag}`}>
+          <TagLink key={tag} className="tag">
+            {tag}
+          </TagLink>
+        </Link>
+      ))}
+    </Tag>
+  );
 }
 
+const Tag = styled.div`
+  margin: 1rem 0 2rem 0;
+`;
+
+const TagLink = styled.a`
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  padding: 3px 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--blueish);
+
+  &::before {
+    content: "#";
+  }
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+`;
+
 const TagBlock = props => {
-    if (!props.tags || !Array.isArray(props.tags)) return null;
-    return tagMaker(props.tags);
+  if (!props.tags || !Array.isArray(props.tags)) return null;
+  return tagMaker(props.tags);
 };
 
 export default TagBlock;
