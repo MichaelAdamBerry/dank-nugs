@@ -6,11 +6,12 @@ This is my personal blog where I write about web development tools and technolog
 
 ## Recent Posts 
 
+ [React Hooks - useContext()](https://dank-nugs.now.sh/blog/post-three-context/) - Explainer with a demo project
 
+ [What. Is. This.](https://dank-nugs.now.sh/blog/post-two-whats-this/) - Exploring use cases of the the 'this' keyword in javascript
 
-1. [What. Is. This.](https://dank-nugs.now.sh/blog/post-two-whats-this/) - Exploring use cases of the the 'this' keyword in javascript
+ [Styled Components](https://dank-nugs.now.sh/blog/post-one-styled-components/) - CSS in JS with styled components & emotion
 
-2. [Styled Components](https://dank-nugs.now.sh/blog/post-one-styled-components/) - CSS in JS with styled components & emotion
 
 
 
